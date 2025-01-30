@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Details</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search Volunteer Details by Email</h2>
+    <input type="email" id="emailInput" placeholder="Enter Email">
+    <button onclick="fetchUserData()">Search</button>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Blood Group</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchUserData() {
+            let email = document.getElementById("emailInput").value;
+            if (!email) {
+                alert("Please enter an email");
+                return;
+            }
+        
+            try {
+                const response = await fetch(`http://localhost:4000/api/users?email=${email}`);
+                if (!response.ok) {
+                    throw new Error("User not found");
+                }
+                const user = await response.json();
+                
+                let tableBody = document.getElementById("userTableBody");
+                tableBody.innerHTML = `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.role}</td>
+                    <td>${user.email}</td>
+                    <td>${user.mob_no}</td> <!-- Ensure this matches the API response field -->
+                    <td>${user.blood_group}</td> <!-- Ensure this matches the API response field -->
+                    <td>${user.address}</td>
+                </tr>`;
+            } catch (error) {
+                alert(error.message);
+            }
+        }        
+    </script>
+</body>
+</html>
