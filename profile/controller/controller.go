@@ -13,7 +13,9 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-const connectionString = "mongodb+srv://ravi:ravi@cluster0.ahx9n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+// NOTE :  ===****===****===****===****===****===****====== replace original db key
+const connectionString = "REPLACE DATABASE KEY"
 
 const dbName = "volunteer-Management-system"
 const colName = "volunteer-details"
